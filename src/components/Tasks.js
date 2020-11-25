@@ -1,14 +1,34 @@
+import { useState } from 'react';
+
 export function Task(props) { 
-	let theTask = props.task //local variable for readability
+	const theTask = props.task //local variable for readability
+
+  //store completeness in a state variable
+  //const [isComplete, setCompleteness] = useState(theTask.complete)
+  const [clickCount, setClickCount] = useState(0)
+  console.log("rendering with #clicks:", clickCount);
 
 	//some data processing
 	let className = '';
 	if(theTask.complete) {
+	//if(isComplete) {
 		className = 'font-strike';
 	}
-	
+  
+  const handleClick = (event) => {
+    console.log("you clicked on", theTask.description);
+                                 //AND it will rerender!
+    setClickCount(clickCount +1 )
+
+    //call App's toggleComplete
+
+    // setCompleteness(!isComplete) //assign a new value to the state variable
+    // console.log("end of handleClick:", clickCount)
+    props.howToHandleClick(theTask.id)
+  }
+
 	return (
-		<li className={className} >
+		<li className={className} onClick={handleClick}>
 			{theTask.description}
 		</li>
 	);
@@ -16,9 +36,15 @@ export function Task(props) {
 	
 export default function TaskList(props) {
 	//do data processing
-	//this.props.tasks is an ARRAY of JS Objects
+	//props.tasks is an ARRAY of JS Objects
 	let taskComponents = props.tasks.map((eachTask) => {
-	  let singleTaskElem = <Task key={eachTask.id} task={eachTask} />
+    let singleTaskElem = (
+        <Task 
+          key={eachTask.id} 
+          task={eachTask} 
+          howToHandleClick={props.whatToDoWhenClicked} 
+        />
+    )
 	  return singleTaskElem;
 	})
 
