@@ -6,13 +6,12 @@ import './index.css';
 
 import App from './components/App'
 
-//the "data"
-const SAMPLE_TASKS = [
-  {id:1, description:'Learn JSX', complete:true},
-  {id:2, description:'Learn about React State', complete:false},
-  {id:3, description:'Get some sleep', complete:false} 
-];
+const BLOG_POSTS = { //model for demoing
+  '2020-11-26':"Why are we still stuck inside??",
+  '2020-09-16':"School is starting and I'm still inside",
+  '2020-05-19':"Still stuck inside. Please send help",
+  '2020-04-04':"Been stuck inside all day!",
+};
 
-//pass data in as a prop!
-ReactDOM.render(<App tasks={SAMPLE_TASKS} />, 
-  document.getElementById('root'));
+//render App, passing it array as prop!
+ReactDOM.render(<App initialPosts={BLOG_POSTS} />, document.getElementById('root'));
